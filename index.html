@@ -1093,8 +1093,18 @@
       input.style.borderColor = '#2E9E6E';
       setTimeout(() => { input.placeholder = 'your@email.com'; input.style.borderColor = ''; }, 3000);
     }
-    // In production: POST to your backend here
-    console.log('Waitlist signup:', email);
+    // Send to Google Sheets
+    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyeg6aymqEfaAeOOZV80rFftixyDSpWUucOv0oIv16JX-C-6FkJKapgm0BPRmSFBqXG/exec';
+    fetch(SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email,
+        source: source,
+        date: new Date().toISOString()
+      })
+    }).catch(err => console.error('Sheet error:', err));
   }
 
 
