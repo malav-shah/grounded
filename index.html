@@ -1094,16 +1094,12 @@
       setTimeout(() => { input.placeholder = 'your@email.com'; input.style.borderColor = ''; }, 3000);
     }
     // Send to Google Sheets
-    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyeg6aymqEfaAeOOZV80rFftixyDSpWUucOv0oIv16JX-C-6FkJKapgm0BPRmSFBqXG/exec';
+    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbx9jyptVeZbxI3Lq9CvqWlGtRevyCPQxr3ARkSJHzFM-AewXNa3euLVI0I0FkB7RJewrw/exec';
     fetch(SHEET_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: email,
-        source: source,
-        date: new Date().toISOString()
-      })
+      body: JSON.stringify({ email: email, source: source, date: new Date().toISOString() })
     }).catch(err => console.error('Sheet error:', err));
   }
 
