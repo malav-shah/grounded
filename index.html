@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Grounded — Invest in Real Estate from ₹500/day</title>
@@ -330,7 +331,27 @@
     transition: max-height 0.3s ease;
   }
 
-  .step.active .step-desc { max-height: 100px; }
+  .step.active .step-desc { max-height: 200px; }
+
+  .bwin {
+    width: 100%; aspect-ratio: 1.6;
+    background: rgba(255,255,255,0.08);
+    border-radius: 1px;
+    transition: background 0.5s ease, box-shadow 0.5s ease;
+  }
+  .bwin.lit {
+    background: rgba(232,168,56,0.85);
+    box-shadow: 0 0 6px rgba(232,168,56,0.4), inset 0 0 4px rgba(255,255,255,0.2);
+  }
+  .bwin.yours {
+    background: var(--terracotta);
+    box-shadow: 0 0 10px rgba(200,85,42,0.5), inset 0 0 4px rgba(255,255,255,0.3);
+    animation: pulse-win 1.5s ease-in-out infinite alternate;
+  }
+  @keyframes pulse-win {
+    0% { box-shadow: 0 0 6px rgba(200,85,42,0.3); }
+    100% { box-shadow: 0 0 14px rgba(200,85,42,0.6), inset 0 0 6px rgba(255,255,255,0.2); }
+  }
 
   .explainer-visual {
     background: var(--cream);
@@ -471,11 +492,11 @@
     display: flex; align-items: flex-end;
     gap: 16px; height: 200px;
     border-bottom: 1px solid rgba(255,255,255,0.15);
-    padding-bottom: 12px;
+    padding-bottom: 40px;
     margin-bottom: 12px;
   }
 
-  .bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; justify-content: flex-end; position: relative; }
 
   .bar {
     width: 100%; border-radius: 6px 6px 0 0;
@@ -492,7 +513,9 @@
 
   .bar-name {
     font-size: 12px; color: rgba(255,255,255,0.5);
-    text-align: center; margin-top: 8px;
+    text-align: center; position: absolute;
+    bottom: -28px; left: 50%; transform: translateX(-50%);
+    white-space: nowrap;
   }
 
   .chart-legend {
@@ -714,12 +737,17 @@
   /* RESPONSIVE */
   @media (max-width: 768px) {
     .hero { grid-template-columns: 1fr; padding-top: 100px; }
-    .hero-visual { display: none; }
+    .hero-visual { margin-top: 20px; }
     .explainer-grid { grid-template-columns: 1fr; }
     .steps-grid { grid-template-columns: 1fr; }
     .faq-grid { grid-template-columns: 1fr; }
     .compare-header, .compare-row { grid-template-columns: 1.5fr 1fr 1fr 1.2fr; }
     .compare-header div:nth-child(3), .compare-row div:nth-child(3) { display: none; }
+    .chart-wrap { padding: 20px 16px; }
+    .chart-bars { gap: 6px; height: 200px; padding-top: 30px; }
+    .bar-name { font-size: 10px; }
+    .bar-pct { font-size: 10px; }
+    .chart-legend { font-size: 12px; gap: 12px; }
     .waitlist-form { flex-direction: column; }
     footer { flex-direction: column; }
   }
@@ -751,23 +779,65 @@
     <div class="hero-trust">No spam. We'll notify you when we launch.</div>
   </div>
 
-  <div class="hero-visual">
-    <div class="portfolio-card">
-      <div class="card-label">₹500/day · 3 years · illustrative</div>
-      <div class="card-value">₹5,89,600 <span>↑ 12% XIRR</span></div>
-      <div class="card-sub">On ₹5,47,500 invested · + ₹57,330 distributions received</div>
+  <div class="hero-visual" id="heroBuildingViz">
+    <!-- Hero Building -->
+    <div style="display:flex;justify-content:center;align-items:flex-end;gap:10px;margin-bottom:16px;">
+      <!-- Left wing -->
+      <div style="width:70px;">
+        <div style="background:var(--forest);height:5px;border-radius:3px 3px 0 0;margin-bottom:2px;"></div>
+        <div style="background:var(--forest);border-radius:2px;padding:5px 4px;display:grid;grid-template-columns:repeat(3,1fr);gap:3px;">
+          <div class="bwin hero-bwin" data-floor="6"></div><div class="bwin hero-bwin" data-floor="6"></div><div class="bwin hero-bwin" data-floor="6"></div>
+          <div class="bwin hero-bwin" data-floor="5"></div><div class="bwin hero-bwin" data-floor="5"></div><div class="bwin hero-bwin" data-floor="5"></div>
+          <div class="bwin hero-bwin" data-floor="4"></div><div class="bwin hero-bwin" data-floor="4"></div><div class="bwin hero-bwin" data-floor="4"></div>
+          <div class="bwin hero-bwin" data-floor="3"></div><div class="bwin hero-bwin" data-floor="3"></div><div class="bwin hero-bwin" data-floor="3"></div>
+          <div class="bwin hero-bwin" data-floor="2"></div><div class="bwin hero-bwin" data-floor="2"></div><div class="bwin hero-bwin" data-floor="2"></div>
+          <div class="bwin hero-bwin" data-floor="1"></div><div class="bwin hero-bwin" data-floor="1"></div><div class="bwin hero-bwin" data-floor="1"></div>
+        </div>
+      </div>
+      <!-- Main tower -->
+      <div style="width:105px;">
+        <div style="background:var(--terracotta);height:7px;width:40%;margin:0 auto 2px;border-radius:4px 4px 0 0;"></div>
+        <div style="background:var(--text-dark);height:7px;border-radius:3px 3px 0 0;margin-bottom:2px;"></div>
+        <div style="background:var(--text-dark);border-radius:2px;padding:6px 5px;display:grid;grid-template-columns:repeat(4,1fr);gap:3px;">
+          <div class="bwin hero-bwin" data-floor="10"></div><div class="bwin hero-bwin" data-floor="10"></div><div class="bwin hero-bwin" data-floor="10"></div><div class="bwin hero-bwin" data-floor="10"></div>
+          <div class="bwin hero-bwin" data-floor="9"></div><div class="bwin hero-bwin" data-floor="9"></div><div class="bwin hero-bwin" data-floor="9"></div><div class="bwin hero-bwin" data-floor="9"></div>
+          <div class="bwin hero-bwin" data-floor="8"></div><div class="bwin hero-bwin" data-floor="8"></div><div class="bwin hero-bwin" data-floor="8"></div><div class="bwin hero-bwin" data-floor="8"></div>
+          <div class="bwin hero-bwin" data-floor="7"></div><div class="bwin hero-bwin" data-floor="7"></div><div class="bwin hero-bwin" data-floor="7"></div><div class="bwin hero-bwin" data-floor="7"></div>
+          <div class="bwin hero-bwin" data-floor="6"></div><div class="bwin hero-bwin" data-floor="6"></div><div class="bwin hero-bwin" data-floor="6"></div><div class="bwin hero-bwin" data-floor="6"></div>
+          <div class="bwin hero-bwin" data-floor="5"></div><div class="bwin hero-bwin" data-floor="5"></div><div class="bwin hero-bwin" data-floor="5"></div><div class="bwin hero-bwin" data-floor="5"></div>
+          <div class="bwin hero-bwin" data-floor="4"></div><div class="bwin hero-bwin" data-floor="4"></div><div class="bwin hero-bwin" data-floor="4"></div><div class="bwin hero-bwin" data-floor="4"></div>
+          <div class="bwin hero-bwin" data-floor="3"></div><div class="bwin hero-bwin" data-floor="3"></div><div class="bwin hero-bwin" data-floor="3"></div><div class="bwin hero-bwin" data-floor="3"></div>
+          <div class="bwin hero-bwin" data-floor="2"></div><div class="bwin hero-bwin" data-floor="2"></div><div class="bwin hero-bwin" data-floor="2"></div><div class="bwin hero-bwin" data-floor="2"></div>
+          <div class="bwin hero-bwin" data-floor="1"></div><div class="bwin hero-bwin" data-floor="1"></div><div class="bwin hero-bwin" data-floor="1"></div><div class="bwin hero-bwin" data-floor="1"></div>
+        </div>
+        <div style="background:var(--text-dark);padding:0 5px 5px;border-radius:0 0 2px 2px;">
+          <div style="background:rgba(232,168,56,0.3);height:12px;border-radius:0 0 5px 5px;border:1px solid rgba(232,168,56,0.4);border-top:0;"></div>
+        </div>
+      </div>
+      <!-- Right wing -->
+      <div style="width:70px;">
+        <div style="background:var(--forest);height:5px;border-radius:3px 3px 0 0;margin-bottom:2px;"></div>
+        <div style="background:var(--forest);border-radius:2px;padding:5px 4px;display:grid;grid-template-columns:repeat(3,1fr);gap:3px;">
+          <div class="bwin hero-bwin" data-floor="6"></div><div class="bwin hero-bwin" data-floor="6"></div><div class="bwin hero-bwin" data-floor="6"></div>
+          <div class="bwin hero-bwin" data-floor="5"></div><div class="bwin hero-bwin" data-floor="5"></div><div class="bwin hero-bwin" data-floor="5"></div>
+          <div class="bwin hero-bwin" data-floor="4"></div><div class="bwin hero-bwin" data-floor="4"></div><div class="bwin hero-bwin" data-floor="4"></div>
+          <div class="bwin hero-bwin" data-floor="3"></div><div class="bwin hero-bwin" data-floor="3"></div><div class="bwin hero-bwin" data-floor="3"></div>
+          <div class="bwin hero-bwin" data-floor="2"></div><div class="bwin hero-bwin" data-floor="2"></div><div class="bwin hero-bwin" data-floor="2"></div>
+          <div class="bwin hero-bwin" data-floor="1"></div><div class="bwin hero-bwin" data-floor="1"></div><div class="bwin hero-bwin" data-floor="1"></div>
+        </div>
+      </div>
     </div>
-    <div class="mini-cards">
-      <div class="mini-card">
-        <div class="card-label">3yr distributions</div>
-        <div class="card-value">₹57,330</div>
-        <div class="card-sub">XIRR ~12% · paid quarterly</div>
-      </div>
-      <div class="mini-card highlight">
-        <div class="card-label">Daily SIP</div>
-        <div class="card-value">₹500</div>
-        <div class="card-sub">Auto-investing</div>
-      </div>
+    <!-- Counter -->
+    <div style="text-align:center;">
+      <div id="heroPct" style="font-family:'Fraunces',serif;font-size:24px;font-weight:500;color:var(--terracotta);line-height:1;">0%</div>
+      <div style="font-size:11px;color:var(--text-light);margin-top:4px;">of this building is yours</div>
+      <div id="heroUnits" style="font-size:12px;color:var(--text-mid);margin-top:2px;font-weight:500;">0 units · ₹0</div>
+    </div>
+    <!-- Projection -->
+    <div style="margin-top:16px;padding:14px;background:var(--terracotta-light);border-radius:12px;text-align:center;">
+      <div style="font-size:11px;color:var(--terracotta-dark);font-weight:500;">₹500/day for 3 years →</div>
+      <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:500;color:var(--terracotta);line-height:1;margin-top:4px;">₹6,52,181</div>
+      <div style="font-size:11px;color:var(--terracotta-dark);margin-top:4px;opacity:0.7;">XIRR ~12% · illustrative</div>
     </div>
   </div>
 </section>
@@ -860,8 +930,8 @@
       <div style="margin-top:12px;padding:16px;background:var(--terracotta-light);border-radius:12px;">
         <div style="font-size:12px;color:var(--terracotta-dark);font-weight:500;margin-bottom:12px;">₹500/day for 3 years could grow to</div>
         <div style="text-align:center;padding:8px 0 12px;">
-          <div style="font-family:'Fraunces',serif;font-size:42px;font-weight:500;color:var(--terracotta);line-height:1;">₹5,89,600</div>
-          <div style="font-size:12px;color:var(--terracotta-dark);margin-top:6px;">+ ₹57,330 distributions · XIRR ~12% · illustrative</div>
+          <div style="font-family:'Fraunces',serif;font-size:42px;font-weight:500;color:var(--terracotta);line-height:1;">₹6,52,181</div>
+          <div style="font-size:12px;color:var(--terracotta-dark);margin-top:6px;">XIRR ~12% · illustrative</div>
         </div>
       </div>
     </div>
@@ -871,7 +941,7 @@
 <!-- COMPARISON -->
 <section class="comparison">
   <div class="section-label">How does it compare?</div>
-  <h2 class="section-title fade-up">Better than FD.<br>Better than direct real estate.</h2>
+  <h2 class="section-title fade-up">Better than FD. Better than bonds.<br>Better than direct real estate.</h2>
   <p class="section-sub fade-up">See how REITs stack up against the products you already use.</p>
 
   <div class="compare-table fade-up">
@@ -887,6 +957,13 @@
       <div>6.5–7%</div>
       <div><span class="pill amber">Interest only</span></div>
       <div><span class="pill red">Locked in</span></div>
+      <div class="highlight-col">—</div>
+    </div>
+    <div class="compare-row">
+      <div>Bonds / Debt MF</div>
+      <div>7–9%</div>
+      <div><span class="pill amber">Coupon / interest</span></div>
+      <div><span class="pill amber">Moderate</span></div>
       <div class="highlight-col">—</div>
     </div>
     <div class="compare-row">
@@ -921,14 +998,20 @@
         <div class="bar-name">FD</div>
       </div>
       <div class="bar-group">
+        <div class="bar" style="background:rgba(255,255,255,0.18);height:0px;" data-h="50" data-label="~8%">
+          <div class="bar-pct">~8%</div>
+        </div>
+        <div class="bar-name">Bonds</div>
+      </div>
+      <div class="bar-group">
         <div class="bar" style="background:rgba(255,255,255,0.2);height:0px;" data-h="55" data-label="~8.5%">
           <div class="bar-pct">~8.5%</div>
         </div>
         <div class="bar-name">Direct RE</div>
       </div>
       <div class="bar-group">
-        <div class="bar" style="background:#E8A838;height:0px;" data-h="135" data-label="~13% XIRR">
-          <div class="bar-pct">~13% XIRR</div>
+        <div class="bar" style="background:#E8A838;height:0px;" data-h="125" data-label="~12% XIRR">
+          <div class="bar-pct">~12% XIRR</div>
         </div>
         <div class="bar-name">REITs via Grounded ✦</div>
       </div>
@@ -937,7 +1020,7 @@
       <div class="legend-item"><div class="legend-dot" style="background:#E8A838;"></div>REITs via Grounded (price + distributions)</div>
       <div class="legend-item"><div class="legend-dot" style="background:rgba(255,255,255,0.3);"></div>Other asset classes</div>
     </div>
-    <div style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:16px;">~13% is the blended XIRR average across India's 3 listed office REITs since inception, including all quarterly distributions. Source: Wealth First, NSE. Past performance is not indicative of future returns.</div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:16px;">~12% is the blended XIRR average across India's 3 listed office REITs since inception, including all quarterly distributions. Source: Wealth First, NSE. Past performance is not indicative of future returns.</div>
   </div>
 </section>
 
@@ -949,7 +1032,7 @@
     <div class="how-card fade-up">
       <div class="how-num">01</div>
       <div class="how-title">Sign up & complete KYC</div>
-      <div class="how-desc">Just PAN + Aadhaar. Takes under 10 minutes. No demat account needed to get started.</div>
+      <div class="how-desc">PAN + Aadhaar + demat account. Don't have a demat? We'll walk you through setting one up — it's free and takes 10 minutes.</div>
     </div>
     <div class="how-card fade-up" style="transition-delay:0.1s">
       <div class="how-num">02</div>
@@ -1024,6 +1107,62 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
+  // Hero building animation (auto-plays on load)
+  function animateBuilding(containerSelector, pctId, unitsId) {
+    const container = document.querySelector(containerSelector);
+    if (!container) return;
+    const wins = container.querySelectorAll('.bwin');
+    const totalWindows = wins.length;
+    const pctEl = document.getElementById(pctId);
+    const unitsEl = document.getElementById(unitsId);
+
+    const byFloor = {};
+    wins.forEach(w => {
+      const f = parseInt(w.dataset.floor);
+      if (!byFloor[f]) byFloor[f] = [];
+      byFloor[f].push(w);
+    });
+    const sorted = [];
+    Object.keys(byFloor).sort((a,b) => a - b).forEach(f => {
+      const floorWins = byFloor[f];
+      for (let i = floorWins.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [floorWins[i], floorWins[j]] = [floorWins[j], floorWins[i]];
+      }
+      sorted.push(...floorWins);
+    });
+
+    sorted.forEach((w, i) => { setTimeout(() => { w.classList.add('lit'); }, i * 35); });
+
+    const yourCount = Math.round(totalWindows * 0.18);
+    setTimeout(() => {
+      const indices = Array.from({length: totalWindows}, (_, i) => i);
+      for (let i = indices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indices[i], indices[j]] = [indices[j], indices[i]];
+      }
+      const yourIndices = indices.slice(0, yourCount);
+      yourIndices.forEach((idx, i) => {
+        setTimeout(() => {
+          sorted[idx].classList.remove('lit');
+          sorted[idx].classList.add('yours');
+          if (pctEl && unitsEl) {
+            const owned = i + 1;
+            const pct = ((owned / totalWindows) * 100).toFixed(1);
+            const targetUnits = 1440;
+            const units = Math.round((owned / yourCount) * targetUnits);
+            const invested = Math.round(units * 380 / 1000);
+            pctEl.textContent = pct + '%';
+            unitsEl.textContent = units.toLocaleString('en-IN') + ' units · ₹' + invested.toLocaleString('en-IN') + 'K';
+          }
+        }, i * 100);
+      });
+    }, totalWindows * 35 + 300);
+  }
+
+  // Auto-play hero building on load
+  setTimeout(() => { animateBuilding('#heroBuildingViz', 'heroPct', 'heroUnits'); }, 500);
+
   // Bar chart animation
   const barObserver = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -1036,31 +1175,29 @@
   }, { threshold: 0.3 });
   barObserver.observe(document.getElementById('chartBars'));
 
-  // Ownership bar animation
+  // REIT cards + progress bar animation on scroll
   const ownObserver = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        let pct = 0;
+        ['b1','b2','b3','b4'].forEach((id, i) => {
+          setTimeout(() => { document.getElementById(id).style.opacity = '1'; }, i * 200);
+        });
+        // Progress bar
         const fill = document.getElementById('ownFill');
         const label = document.getElementById('ownPct');
-        let units = 0;
+        const milestones = [10, 25, 50, 100, 175, 250, 350, 480, 600, 750, 900, 1050, 1200, 1320, 1440];
+        let i = 0;
         const interval = setInterval(() => {
-          units += 0.8;
-          const displayUnits = Math.min(units, 480); // ~₹1,82,500 / ₹380 per unit ≈ 480 units
-          const fillPct = Math.min((displayUnits / 480) * 65, 65);
+          const units = milestones[i];
+          const fillPct = (units / 1440) * 65;
           fill.style.width = fillPct + '%';
-          label.textContent = Math.round(displayUnits) + ' units owned (~₹' + Math.round(displayUnits * 380 / 1000) + 'K invested)';
-          if (units >= 480) clearInterval(interval);
-        }, 30);
-        // REIT card fade-in
-        ['b1','b2','b3','b4'].forEach((id, i) => {
-          setTimeout(() => {
-            document.getElementById(id).style.opacity = '1';
-          }, i * 200);
-        });
+          label.textContent = units + ' units owned (~₹' + Math.round(units * 380 / 1000) + 'K invested)';
+          i++;
+          if (i >= milestones.length) clearInterval(interval);
+        }, 200);
       }
     });
-  }, { threshold: 0.3 });
+  }, { threshold: 0.2 });
   ownObserver.observe(document.getElementById('buildingRow'));
 
   // Steps accordion
@@ -1078,12 +1215,19 @@
   function submitEmail(source) {
     const input = document.getElementById(source === 'hero' ? 'hero-email' : 'waitlist-email');
     const email = input.value.trim();
-    if (!email || !email.includes('@')) {
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       input.style.borderColor = '#C8552A';
       input.placeholder = 'Please enter a valid email';
       setTimeout(() => { input.style.borderColor = ''; input.placeholder = 'your@email.com'; }, 2000);
       return;
     }
+    // Send to Google Sheets via form-encoded POST (avoids CORS preflight)
+    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwMjTW5VAhs7tQKZg_yFC1H6ah05Quotn1VjtJZqSCYgNla1C7gCO7ufiCn81uq4t1REw/exec';
+    const params = new URLSearchParams();
+    params.append('email', email);
+    params.append('source', source);
+    params.append('date', new Date().toISOString());
+    // Show success immediately (no-cors doesn't return a readable response)
     if (source === 'waitlist') {
       document.getElementById('waitlistForm').style.display = 'none';
       document.getElementById('successMsg').style.display = 'block';
@@ -1093,13 +1237,10 @@
       input.style.borderColor = '#2E9E6E';
       setTimeout(() => { input.placeholder = 'your@email.com'; input.style.borderColor = ''; }, 3000);
     }
-    // Send to Google Sheets
-    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbx9jyptVeZbxI3Lq9CvqWlGtRevyCPQxr3ARkSJHzFM-AewXNa3euLVI0I0FkB7RJewrw/exec';
     fetch(SHEET_URL, {
       method: 'POST',
       mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email, source: source, date: new Date().toISOString() })
+      body: params
     }).catch(err => console.error('Sheet error:', err));
   }
 
